@@ -12,9 +12,9 @@ class AdminSeeder extends Seeder
     {
         if (!User::where('email', 'admin@example.test')->exists()) {
             User::create([
-                'name' => 'Admin',
+                'nama' => 'Admin',
                 'email' => 'Admin123@mail.com',
-                'password' => Hash::make('password123'), // Selalu gunakan Hash::make()
+                'password' => Hash::make('password123'),
             ]);
         }
     }

@@ -28,7 +28,6 @@ class AdminUserController extends Controller
             'role' => 'required|in:admin,petugas,peminjam',
             'password' => 'required|string|min:6',
         ]);
-        $data['name'] = $data['nama'];
         $data['password'] = Hash::make($data['password']);
         $user = User::create($data);
         LogAktifitas::create(['user_id' => auth()->id(), 'aksi' => "Menambahkan user id:{$user->id}"]);
@@ -49,7 +48,6 @@ class AdminUserController extends Controller
             'role' => 'required|in:admin,petugas,peminjam',
             'password' => 'nullable|string|min:6',
         ]);
-        $data['name'] = $data['nama'];
         if (!empty($data['password'])) {
             $data['password'] = Hash::make($data['password']);
         } else {

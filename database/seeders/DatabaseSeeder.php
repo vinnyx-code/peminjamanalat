@@ -20,7 +20,6 @@ class DatabaseSeeder extends Seeder
         // create example test user if not exists
         if (!User::where('email', 'test@example.com')->exists()) {
             User::factory()->create([
-                'name' => 'Test User',
                 'nama' => 'Test User',
                 'email' => 'test@example.com',
             ]);
