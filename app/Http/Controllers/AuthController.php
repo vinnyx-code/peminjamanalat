@@ -24,7 +24,28 @@ class AuthController extends Controller
         ]);
 
         $user = User::where('email', $request->email)->first();
-        if (!$user || !Hash::check($request->password, $user->password)) {
+
+        if (!$user) {
+            return back()->withErrors(['email' => 'Email atau password salah'])->withInput();
+        }
+
+        $passwordValid = false;
+
+        try {
+            $passwordValid = Hash::check($request->password, $user->password);
+        } catch (\RuntimeException $e) {
+            $legacyPassword = $user->password;
+            $passwordValid = $legacyPassword === $request->password
+                || md5($request->password) === $legacyPassword
+                || sha1($request->password) === $legacyPassword;
+
+            if ($passwordValid) {
+                $user->password = Hash::make($request->password);
+                $user->save();
+            }
+        }
+
+        if (!$passwordValid) {
             return back()->withErrors(['email' => 'Email atau password salah'])->withInput();
         }
 

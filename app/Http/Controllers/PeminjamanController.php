@@ -60,13 +60,43 @@ class PeminjamanController extends Controller
                 $p->status = 'disetujui';
                 $p->petugas_id = $user->id;
                 $p->save();
-                // trigger DB akan mengurangi stok
+
+                $alat->stok = max(0, (int) $alat->stok - 1);
+                $alat->status = $alat->stok > 0 ? 'ada' : 'tidak_tersedia';
+                $alat->save();
             });
 
             LogAktifitas::create(['user_id' => $user->id, 'aksi' => "Menyetujui peminjaman id:{$id}"]);
             return redirect()->back()->with('success','Peminjaman disetujui');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal menyetujui: '.$e->getMessage());
+        }
+    }
+
+    public function tolakPeminjaman(Request $request, $id)
+    {
+        $user = Auth::user();
+        if ($user->role !== 'petugas' && $user->role !== 'admin') {
+            abort(403, 'Unauthorized');
+        }
+
+        try {
+            DB::transaction(function () use ($id, $user) {
+                $p = Peminjaman::lockForUpdate()->findOrFail($id);
+
+                if ($p->status !== 'pending') {
+                    throw new \Exception('Peminjaman tidak dalam status pending');
+                }
+
+                $p->status = 'ditolak';
+                $p->petugas_id = $user->id;
+                $p->save();
+            });
+
+            LogAktifitas::create(['user_id' => $user->id, 'aksi' => "Menolak peminjaman id:{$id}"]);
+            return redirect()->back()->with('success','Peminjaman ditolak');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal menolak: '.$e->getMessage());
         }
     }
 

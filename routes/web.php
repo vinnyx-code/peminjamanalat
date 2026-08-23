@@ -52,5 +52,6 @@ Route::middleware(['auth'])->group(function () {
     // Peminjaman
     Route::post('/peminjaman/ajukan', [PeminjamanController::class,'ajukanPeminjaman'])->name('peminjaman.ajukan');
     Route::post('/peminjaman/{id}/setujui', [PeminjamanController::class,'setujuiPeminjaman'])->name('peminjaman.setujui')->middleware('role:petugas,admin');
+    Route::post('/peminjaman/{id}/tolak', [PeminjamanController::class,'tolakPeminjaman'])->name('peminjaman.tolak')->middleware('role:petugas,admin');
     Route::post('/peminjaman/{id}/pengembalian', [PeminjamanController::class,'prosesPengembalian'])->name('peminjaman.pengembalian');
 });
