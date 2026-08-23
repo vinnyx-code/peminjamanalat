@@ -12,10 +12,12 @@
     .sidebar { width:258px; background:#111827; min-height:100vh; position:fixed; z-index:1030; }
     .brand { color:#fff; font-weight:800; letter-spacing:-.03em; font-size:1.25rem; }
     .brand i { color:#60a5fa; } .nav-section { color:#7d8aa2; font-size:.68rem; text-transform:uppercase; letter-spacing:.12em; }
-    .sidebar .nav-link { color:#b9c3d4; border-radius:10px; padding:.7rem .85rem; margin:.12rem 0; font-size:.9rem; }
+    .sidebar .nav-link { color:#b9c3d4; border-radius:10px; padding:.7rem .85rem; margin:.12rem 0; font-size:.9rem; display:flex; align-items:center; gap:.65rem; width:100%; text-decoration:none; line-height:1.2; }
     .sidebar .nav-link:hover,.sidebar .nav-link.active { color:#fff; background:#263653; }
-    .sidebar .nav-link i { width:24px; font-size:1rem; } .main { margin-left:258px; min-height:100vh; }
+    .sidebar .nav-link i { width:20px; font-size:1rem; text-align:center; } .main { margin-left:258px; min-height:100vh; }
     .topbar { background:#fff; border-bottom:1px solid #e7ebf2; } .card { border:0; border-radius:16px; box-shadow:0 5px 22px rgba(30,45,75,.05); }
+    .btn { font-size:.9rem; border-radius:10px; padding:.55rem .9rem; font-weight:600; transition:.2s ease; }
+    .btn-sm { padding:.45rem .7rem; font-size:.8rem; }
     .eyebrow { color:var(--muted); font-size:.76rem; text-transform:uppercase; letter-spacing:.08em; font-weight:700; }
     .stat-icon { width:42px; height:42px; display:grid; place-items:center; border-radius:12px; font-size:1.2rem; }
     .table thead th { color:#8a95a7; font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; border-bottom-width:1px; }
